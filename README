@@ -1,0 +1,14 @@
+gptool - GMRT Pulsar Tool
+
+RFI mitigation and pulsar processing for GMRT beamformer data.
+
+
+Dependencies:
+
+PGPLOT 
+OPENMP
+
+
+You may need to explicitly add the path to PGPLOT and OPENMP libraries in case they're installed in non-standard paths.
+
+

@@ -2,10 +2,10 @@ CUR_DIR=$(shell pwd)
 #########################
 PGPLOT_INCL=#-I/pathtopgplot/src/pgplot
 PGPLOT_LIB=#-L/pathtopgplot/usr/src/pgplot
-OPENMP_INCL=
-OPENMP_LIB=
-ADDITIONAL_CFLAGS=
-ADDITIONAL_FCFLAGS=
+OPENMP_INCL= #-L/
+OPENMP_LIB= #-L
+ADDITIONAL_CFLAGS= 
+ADDITIONAL_FCFLAGS= 
 #########################
 
 CC=g++
