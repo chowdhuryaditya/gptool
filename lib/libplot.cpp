@@ -435,7 +435,7 @@ void Plot::plotTitle()
 	cpgsvp(0.40,0.65,0.90,1.00);
 	cpgswin(0,100,0,100);
 	ostringstream text1;
-	text1<<"GMRT Pulsar Tool ver 4.4.3";
+	text1<<"GMRT Pulsar Tool ver 4.4.5";
 	cpgtext(0,80,text1.str().c_str());
 	cpgsci(1);
 

@@ -988,7 +988,8 @@ void Runtime::quickclosePipe()
 
 void Runtime::closePipe()
 {
-	for(int k=0;k<nThreadMultiplicityTemp;k++)
+	//cout<<"Entered closePipe()"<<nThreadMultiplicityTemp<<","<<nThreadMultiplicity<<endl;
+	for(int k=0;k<nThreadMultiplicity;k++)
 	{
 		displayBlockIndex(blockIndex+k);
 		writeAll(threadPacket[k]);
@@ -1094,9 +1095,7 @@ void Runtime::action(int threadPacketIndex,int actionIndex)
 		case 2:
 
 			channelTasks(threadPacketIndex,0);
-
 			timeTasks(threadPacketIndex,0);
-
 			channelTasks(threadPacketIndex,1);
 
 			break;
@@ -1305,11 +1304,9 @@ void Runtime::channelTasks(int threadPacketIndex,char dosecondpass)
 				
 				rFIFilteringChan[i]->flagData();
 				rFIFilteringChan[i]->generateManualFlags(info.nBadChanBlocks,info.badChanBlocks,info.startChannel);
-
 			}
 			else
 			{
-
 				timeBandshape+=omp_get_wtime(); //benchmark
 				if(info.doChanFlag)
 				{
@@ -1395,7 +1392,7 @@ void Runtime::timeTasks(int threadPacketIndex,char secondpass)
 			if(info.doChanFlag || (info.doTimeFlag && info.doChanFlag && (info.flagOrder==1)))
 			{
 				timeZeroDM-=omp_get_wtime(); //benchmark
-				if(blockIndex>3*nThreadMultiplicity && secondpass==0)		
+				if(blockIndex>6*nThreadMultiplicity && secondpass==0)		
 				{		
 					basicAnalysis[i]->computeZeroDMNorm(rFIFilteringChan[i]->flags,cumulativeBandpass[i]);	
 				}
@@ -1410,7 +1407,6 @@ void Runtime::timeTasks(int threadPacketIndex,char secondpass)
 				basicAnalysis[i]->computeZeroDM(blankChanFlags);			
 				timeZeroDM+=omp_get_wtime(); //benchmark
 			}
-		
 		
 			if(info.doTimeFlag)
 			{
@@ -1430,16 +1426,15 @@ void Runtime::timeTasks(int threadPacketIndex,char secondpass)
 
 				if(secondpass==0)
 				{
-					
+					//cout<<centralpass0[i]<<","<<stdpass0[i]<<endl;
 					if(blockIndex>6*nThreadMultiplicity)
 					{
 						rFIFilteringTime[i]->centralTendency=centralpass0[i];
 						rFIFilteringTime[i]->rms=stdpass0[i];
 						rFIFilteringTime[i]->generateBlankFlags();
-						rFIFilteringTime[i]->computeStatistics(info.timeFlagAlgo);
+						rFIFilteringTime[i]->computeStatistics(2);
 						
 					}
-					
 					//cout<<centralpass0[i]<<","<<rFIFilteringTime[i]->centralTendency<<endl;
 					//cout<<stdpass0[i]<<","<<rFIFilteringTime[i]->rms<<","<<endl;	
 					if(info.doMultiPointFilter)

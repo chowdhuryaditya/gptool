@@ -666,11 +666,7 @@ void Information::errorChecks()
 		cout<<"Error in line 36 of  gptool.in:"<<endl<<"0 for no frequency domain filtering and 1 for filtering on."<<endl;
 		erFlag=1;
 	}
-	if(bandshapeToUse==2)
-	{
-		cout<<"Using ONLY normalized bandshape for filtering has been temporarily disabled. The reccomended settings is to use both (option 3)."<<endl;
-		erFlag=1;
-	}
+	
 	if(bandshapeToUse !=2 && bandshapeToUse !=3 && bandshapeToUse !=4)
 	{
 		cout<<"Error in line 37 of  gptool.in:"<<endl<<"1 for normalized bandshape; 2 for mean to rms bandshape and 3 for both."<<endl;
@@ -893,7 +889,7 @@ void Information::genMJDObs()
   	long int nanoseconds;
   	double sec;
   	string command,linehdr;
-	ostringstream  headerName;
+	stringstream  headerName;
   	if(doReadFromFile==1) //Read from file
     		headerName<<filepath<<".hdr";
   	else //Real Time
@@ -901,7 +897,7 @@ void Information::genMJDObs()
     	ifstream headerFile(headerName.str().c_str(),ios::in);
     	if(!headerFile.is_open())
     	{
-      		cout<<headerName<<":header file not found!"<<endl;
+      		cout<<headerName.str().c_str()<<":header file not found!"<<endl;
       		exit(1);
     	}
 
@@ -1229,7 +1225,7 @@ void Information::display()
 {
 	
 	stringstream displays;
-	displays<<endl<<"gptool ver 4.4.3"<<endl;
+	displays<<endl<<"gptool ver 4.4.5"<<endl;
 	if(doFilteringOnly)
 		displays<<"FILTERING ONLY MODE"<<endl<<endl;
 	if(isInline)
